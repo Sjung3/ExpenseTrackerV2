@@ -1,0 +1,137 @@
+* {
+    margin: 0;
+    background-color: #0B0C10;
+    font-family: "American Typewriter";
+    color: #C5C6C7;
+}
+h1 {
+    display: grid;
+    justify-content: center;
+    font-size: 4rem;
+    margin-left: 15rem;
+    margin-right: 15rem;
+    margin-bottom: 2rem;
+    color: #66FCF1;
+    justify-content: center;
+}
+input, select, button {
+    font-size: 1.5rem;
+    height: 2rem;
+    border-radius: 10px;
+}
+button {
+    background-color: #45A29E;
+}
+.add-budget-btn, .add-expense-btn, #submit-budget, #submit-expense-btn, #no-btn {
+    font-size: 1.5rem;
+    height: 3rem;
+    background-color: #66FCF1;
+    color: black;
+}
+.delete-btn, #no-btn{
+    background-color: #F28287;
+}
+#no-btn {
+    margin-top: 0.5rem;
+    color: #C5C6C7;
+}
+ul {
+    list-style-type: none;
+}
+p {
+    font-size: 1rem;
+}
+.h2{
+    margin-left: 15rem;
+}
+.budget-list {
+    margin-bottom: 2rem;
+}
+.budget-container, .expense-container, #budget-ul, .btn-container, .per-btn-container, .in-expense-list, .are-you-sure-container,
+.inner-list-budget {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    grid-gap: 0.5rem;
+    margin-left: 15rem;
+    margin-right: 15rem;
+    align-items: center;
+}
+.inner-list-budget, .in-expense-list {
+    margin-left: 20rem;
+    margin-right: 20rem;
+    margin-bottom: 1rem;
+}
+.budget-label, .expense-label, .are-you-sure, #budget-to-delete{
+    margin-left: 5rem;
+    margin-right: 5rem;
+}
+.inner-list-budget, .in-expense-list{
+    grid-template-columns: 3fr 1fr 1fr;
+}
+.in-expense-list{
+    grid-template-columns: 1fr 0.25fr;
+}
+.are-you-sure-container {
+    grid-template-columns: 1fr;
+    grid-gap: 0.5rem;
+}
+.budget {
+    display: grid;
+    grid-column: 1/2;
+    align-items: center;
+}
+.budget-label, .expense-label {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: stretch;
+}
+.h4, .budget-name, .start-date, .end-date, .budget-amount, #bud-name, #bud-start, #bud-end, #bud-amount, #home-from-budget,
+.expense-date, .expense-category, .expense-amount, .expense-comment, #exp-date, #exp-category, #exp-amount, #exp-comment, #submit-budget,
+#submit-expense-btn, .add-expense-btn, #home-from-menu, .spent-per, .add-budget-btn {
+    grid-column: 1/3;
+}
+#budget-name, #budget-total, #budget-dates, #average-spent, #total-trip, #back-from-per, #home-from-per, #total-day {
+    grid-column: 1/2;
+    font-size: 1.5rem;
+}
+.category-btn, .expense {
+    grid-column: 1/2;
+}
+#daily-budget, #days-trip, .date-btn, .delete-expense, #home-from-per, .go-btn, #remaining {
+    grid-column: 2/3;
+}
+.delete-budget {
+    grid-column: 3/4;
+}
+.add-expense-btn, #budget-name{
+    grid-row: 2/3;
+}
+#home-from-menu, #budget-total {
+    grid-row: 3/4;
+}
+#total-day {
+    grid-row: 4/5;
+}
+#average-spent, #daily-budget {
+    grid-row: 5/6;
+}
+#remaining, #total-trip {
+    grid-row: 6/7;
+}
+#budget-total, #home-from-menu {
+    margin-bottom: 1rem;
+}
+#todays-date {
+    text-align: end;
+    margin-right: 2rem;
+}
+#budget-ul {
+    grid-gap: 0;
+}
+#budget-name, #budget-total, #budget-dates {
+    color: #45A29E;
+}
+#back-from-per, #home-from-per {
+    height: 3rem;
+}

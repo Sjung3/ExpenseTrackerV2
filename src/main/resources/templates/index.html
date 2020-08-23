@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>The Expense Tracker</title>
+    <link rel="stylesheet" href="./css/style.css?refreshcss=1">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./javascript/index.js" defer></script>
+
+
+</head>
+
+<body>
+
+<header class="header">
+    <h1 class="h1">The Expense Tracker</h1>
+
+    <div class="welcome-container">
+        <h2 class="h2">Budgets</h2>
+
+        <ul class="budget-list">
+
+        </ul>
+        <div class="btn-container">
+            <button class="add-budget-btn" type="submit">Add a new budget</button>
+        </div>
+
+    </div>
+
+    <div class="budget-container">
+        <label class="budget-label" id="bud-name">
+            <h4 class="budget-info h4">Budget name</h4>
+            <input class="budget-name budget-submitted" type="text" placeholder="Maximum 10 characters">
+        </label>
+        <label class="budget-label" id="bud-start">
+            <h4 class="budget-info h4">Start date</h4>
+            <input class="start-date budget-submitted" type="date">
+        </label>
+        <label class="budget-label" id="bud-end">
+            <h4 class="budget-info h4">End date</h4>
+            <input class="end-date budget-submitted" type="date">
+        </label>
+        <label class="budget-label" id="bud-amount">
+            <h4 class="budget-info h4">Amount</h4>
+            <input class="budget-amount budget-submitted" type="number" placeholder="Only digits">
+        </label>
+
+            <button class="submit-btn" id="submit-budget" type="submit">Submit budget</button>
+            <button class="home-btn" id="home-from-budget" type="submit">Home</button>
+    </div>
+
+    <div class="are-you-sure-container">
+        <h2 class="are-you-sure">Are you sure you want to delete this budget?</h2>
+        <p id="budget-to-delete"></p>
+        <button id="no-btn" type="button">No</button>
+        <button id="yes-btn" type="button">Yes</button>
+    </div>
+
+    <div class="budget-menu-container">
+
+        <ul id="budget-ul">
+            <li class="budget-info-list" id="budget-dates"></li>
+            <li class="budget-info-list" id="budget-name"></li>
+            <li class="budget-info-list" id="budget-total"></li>
+
+            <li class="budget-info-list" id="total-day"></li>
+            <li class="budget-info-list" id="daily-budget"></li>
+            <li class="budget-info-list" id="average-spent"></li>
+
+            <li class="budget-info-list" id="total-trip"></li>
+            <li class="budget-info-list" id="remaining"></li>
+            <h2 id="todays-date">Today's date: </h2>
+        </ul>
+
+        <div class="btn-container">
+            <button class="category-btn" type="submit">Category breakdown</button>
+            <button class="date-btn" type="submit">Date breakdown</button>
+            <button class="add-expense-btn" type="submit">Add a new expense</button>
+            <button class="home-btn" id="home-from-menu" type="submit">Home</button>
+        </div>
+    </div>
+
+    <div class="expense-container">
+        <label class="expense-label" id="exp-date">
+            <h4 class="expense-info h4">Date</h4>
+            <input class="expense-date expense-submitted" type="date">
+        </label>
+        <label class="expense-label" id="exp-category">
+            <h4 class="expense-info h4">Category</h4>
+            <select class="expense-category expense-submitted">
+                <option value="food">Food</option>
+                <option value="entertainment">Entertainment</option>
+                <option value="accommodation">Accommodation</option>
+                <option value="transport">Transport</option>
+                <option value="misc">Misc</option>
+            </select>
+        </label>
+        <label class="expense-label" id="exp-amount">
+            <h4 class="expense-info h4">Euro</h4>
+            <input class="expense-amount expense-submitted" type="number" placeholder="Only digits">
+        </label>
+        <label class="expense-label" id="exp-comment">
+            <h4 class="expense-info h4">Comment</h4>
+            <input class="expense-comment expense-submitted" type="text" placeholder="Maximum 30 characters">
+        </label>
+
+            <button class="submit-btn" id="submit-expense-btn" type="submit">Submit expense</button>
+            <button class="back-btn" id="back-from-expense" type="submit">Back to overview</button>
+            <button class="home-btn" id="home-from-expense" type="submit">Home</button>
+    </div>
+
+    <div class="per-container">
+        <ul class="expense-list">
+        </ul>
+        <div class="per-btn-container">
+            <button class="back-btn" id="back-from-per" type="submit">Back to overview</button>
+            <button class="home-btn" id="home-from-per" type="submit">Home</button>
+        </div>
+    </div>
+</header>
+</body>
+
+</html>
