@@ -75,9 +75,10 @@ welcomeContainer.addEventListener('click', (e) => {
 welcomeContainer.addEventListener('click', async (e) => {
     if (e.target.className == 'delete-budget delete-btn') {
         const parent = getParent(e);
-        const where = parent.children[1].textContent;
+        const child = getChild(parent, 1);
+        const id = getChildTextContent(child);
 
-        document.querySelector('#budget-to-delete').textContent += where;
+        document.querySelector('#budget-to-delete').textContent += id;
         showSureContainer();
         sureContainer.addEventListener('click', async (ev) => {
 
@@ -136,17 +137,18 @@ expenseContainer.addEventListener('click', async (e) => {
         clearInput(document.querySelectorAll('.expense-submitted'));
     }
 });
-
+//Displays the details of spent per category when a user clicks on ie 'food'
 perContainer.addEventListener('click', (e) => {
     if (e.target.className == 'spent-per') {
         const parent = getParent(e);
-        const text = parent.children[0].textContent;
-        const where = text.split(' ');
+        const child = getChild(parent, 0);
+        const showThese = getChildTextContent(child).split(' ');
         const innerListExpense = document.querySelectorAll('.inner-list-expense');
 
         for (const list of innerListExpense) {
             list.style.display = 'none';
-            if (list.children[1].textContent.includes(where[0].toLowerCase())) {
+            const fromExpenseList = getChildTextContent(list, 1);
+            if (fromExpenseList.includes(showThese[0].toLowerCase())) {
                 list.style.display = '';
             }
         }
@@ -276,18 +278,20 @@ async function saveExpense() {
 
 async function deleteItem(e) {
     try {
-        const li = getParent(e);
-        const where = li.children[0].className;
-        const id = li.children[0].textContent;
-        const ul = li.closest("ul")
-        if (where == 'expense-id') {
+        const parent = getParent(e);
+        const child = getChild(parent, 0);
+        const id = getChildTextContent(child);
+        const className = child.className;
+        const ul = parent.closest("ul")
+
+        if (className == 'expense-id') {
             const response = await axios.post('api/deleteExpense', {'expenseID': id});
             if (ul.className == "expense-list") {
-                expenseList.removeChild(li);
+                expenseList.removeChild(parent);
                 return response.data;
             }
             return response.data;
-        } else if (where == 'budget-id') {
+        } else if (className == 'budget-id') {
             const response = await axios.post('api/deleteBudget', {'budgetID': id});
             return response.data;
         }
@@ -452,17 +456,30 @@ function getParent(e) {
     return parent;
 }
 
+function getChild(parent, index) {
+    const child = parent.children[index];
+    return child;
+}
+
+function getChildTextContent(child) {
+    const text = child.textContent;
+    return text;
+}
+
 //Specifies the variable budgetID to specify expense foreign key
 //Used on click 'go-btn'
 function getBudgetID(e) {
-    const li = e.target.parentElement;
-    budgetID = li.children[0].textContent;
+    const parent = getParent(e);
+    const child = getChild(parent, 0);
+    budgetID = getChildTextContent(child);
 }
+
 
 //Sets value of startDate and endDate variable that is then used to ensure the new expense added is within budget dates.
 function getBudgetDates(e) {
-    const li = e.target.parentElement;
-    const budgetTextContent = li.children[1].textContent;
+    const parent = getParent(e);
+    const child = getChild(parent, 1);
+    const budgetTextContent = getChildTextContent(child);
 
     startDate = budgetTextContent.split(' ')[2];
     endDate = budgetTextContent.split(' ')[4];
@@ -470,9 +487,9 @@ function getBudgetDates(e) {
 
 //Delete all budget elements
 //Used when returning to welcome page before rendering the updated budget items
-function deleteElements(li) {
-    while (li.firstChild) {
-        li.removeChild(li.firstChild);
+function deleteElements(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
     }
 }
 
