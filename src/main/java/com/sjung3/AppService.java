@@ -1,6 +1,5 @@
 package com.sjung3;
 
-import org.hibernate.query.Query;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,14 +31,12 @@ public class AppService {
 
     @Transactional(readOnly = true)
     public List<Budget> getSpecificBudget(int id) {
-        List<Budget> budgets= repository.getSpecificBudget(id);
-        return budgets;
+        return repository.getSpecificBudget(id);
     }
 
     @Transactional(readOnly = true)
     public List<Expense> getExpenses(int id) {
-        List<Expense> expenses = repository.getExpenses(id);
-        return expenses;
+        return repository.getExpenses(id);
     }
 
     @Transactional
@@ -54,7 +51,6 @@ public class AppService {
 
     @Transactional
     public int deleteItem(String deleteFrom, int id) {
-        int deletedID = repository.deleteItem(deleteFrom, id);
-        return deletedID;
+        return repository.deleteItem(deleteFrom, id);
     }
 }

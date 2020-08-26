@@ -1,6 +1,5 @@
 package com.sjung3;
 
-import org.hibernate.query.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

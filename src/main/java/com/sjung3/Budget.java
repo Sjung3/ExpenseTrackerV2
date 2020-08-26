@@ -1,10 +1,7 @@
 package com.sjung3;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.sql.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 //The class represents the budgets table in the DB
 

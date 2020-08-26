@@ -3,10 +3,7 @@ package com.sjung3;
 import org.springframework.stereotype.Component;
 
 import java.text.DecimalFormat;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
@@ -75,15 +72,7 @@ public class Admin {
      */
     //TODO changed this....
     public String[] getSummery() {
-     /*   String[] summeryArray = {budgetStartDate.toString(), budgetEndDate.toString(), budgetName,
-                df.format(budgetTotal), spentToday(), dailyBudget(), df.format(avSpent()),
-                df.format(totalSPent()), remaining(), String.valueOf(daysOnTrip())};
-
-        return summeryArray;*/
-      /* return new String[]{budgetStartDate.toString(), budgetEndDate.toString(), budgetName,
-               df.format(budgetTotal), spentToday(), dailyBudget(), df.format(avSpent()),
-               df.format(totalSPent()), remaining(), String.valueOf(daysOnTrip())};*/
-      return new  String[] {budgetStartDate.toString(), budgetEndDate.toString(), budgetName,
+        return new String[]{budgetStartDate.toString(), budgetEndDate.toString(), budgetName,
                 df.format(budgetTotal), spentToday(), dailyBudget(), df.format(avSpent()),
                 df.format(totalSPent()), remaining(), String.valueOf(daysOnTrip())};
     }
@@ -110,7 +99,7 @@ public class Admin {
         } else if (daysTravelled < 0) {
             return 0;
         }
-            return daysTravelled;
+        return daysTravelled;
     }
 
     /**
@@ -120,8 +109,7 @@ public class Admin {
     public String dailyBudget() {
         double budgetPerDay = 0;
         budgetPerDay = budgetTotal / daysBudgeted();
-        String dailyBudget = df.format(budgetPerDay);
-        return dailyBudget;
+        return df.format(budgetPerDay);
     }
 
     /**
@@ -129,10 +117,9 @@ public class Admin {
      * @usage getSummery(), avSpent(), remaining()
      */
     public double totalSPent() {
-        double totalSpent = expenseArray.stream()
+        return expenseArray.stream()
                 .mapToDouble(Expense::getExpenseAmount)
                 .sum();
-        return totalSpent;
     }
 
     /**
@@ -140,8 +127,7 @@ public class Admin {
      * @usage getSummery()
      */
     public String remaining() {
-        String remaining = df.format(budgetTotal - totalSPent());
-        return remaining;
+        return df.format(budgetTotal - totalSPent());
     }
 
     /**
@@ -169,8 +155,7 @@ public class Admin {
                 spentToday += expense.getExpenseAmount();
             }
         }
-        String today = df.format(spentToday);
-        return today;
+        return df.format(spentToday);
     }
 
     /**
@@ -178,8 +163,8 @@ public class Admin {
      * @usage getSummery()
      */
 
+    //TODO CHANGE TO SWITCH (FROM IF)
     public String[] spentPerCategory() {
-
         double food = 0;
         double entertainment = 0;
         double accommodation = 0;
@@ -200,9 +185,8 @@ public class Admin {
                 System.out.println("Something went wrong");
             }
         }
-        String perCategory[] = {"Food €" + df.format(food), "Entertainment €" + df.format(entertainment), "Accommodation €" +
+        return new String[]{"Food €" + df.format(food), "Entertainment €" + df.format(entertainment), "Accommodation €" +
                 df.format(accommodation), "Transport €" + df.format(transport), "Misc €" + df.format(misc)};
-        return perCategory;
     }
 
     /**
