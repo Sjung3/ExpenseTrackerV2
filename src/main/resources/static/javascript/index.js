@@ -23,7 +23,6 @@ let expenseCategory = document.querySelector('.expense-category');
 let expenseAmount = document.querySelector('.expense-amount');
 let expenseComment = document.querySelector('.expense-comment');
 
-
 //Per Container
 let perContainer = document.querySelector('.per-container');
 let expenseList = document.querySelector('.expense-list');
@@ -41,7 +40,7 @@ let endDate = null;
 
 let errorMessage = 'Something went wrong, please try again.';
 
-window.addEventListener('load', async (e) => {
+window.addEventListener('load', async () => {
     const budgetData = await getBudgetData();
     addToBudgetArray(budgetData);
     createBudgetElements(budgetData);
@@ -452,18 +451,15 @@ function createSpentSummeryElements(spentPer) {
 }
 
 function getParent(e) {
-    const parent = e.target.parentElement;
-    return parent;
+    return e.target.parentElement;;
 }
 
 function getChild(parent, index) {
-    const child = parent.children[index];
-    return child;
+    return parent.children[index];
 }
 
 function getChildTextContent(child) {
-    const text = child.textContent;
-    return text;
+    return child.textContent;
 }
 
 //Specifies the variable budgetID to specify expense foreign key
@@ -517,7 +513,7 @@ function showWelcomePage() {
     expenseContainer.style.display = 'none';
     perContainer.style.display = 'none';
     sureContainer.style.display = 'none';
-};
+}
 
 function showAddBudgetPage() {
     welcomeContainer.style.display = 'none';
@@ -526,7 +522,7 @@ function showAddBudgetPage() {
     expenseContainer.style.display = 'none';
     perContainer.style.display = 'none';
     sureContainer.style.display = 'none';
-};
+}
 
 function showBudgetMenuPage() {
     welcomeContainer.style.display = 'none';
@@ -535,7 +531,7 @@ function showBudgetMenuPage() {
     expenseContainer.style.display = 'none';
     perContainer.style.display = 'none';
     sureContainer.style.display = 'none';
-};
+}
 
 function showAddExpensePage() {
     welcomeContainer.style.display = 'none';
@@ -544,7 +540,7 @@ function showAddExpensePage() {
     expenseContainer.style.display = '';
     perContainer.style.display = 'none';
     sureContainer.style.display = 'none';
-};
+}
 
 function showPerPage() {
     welcomeContainer.style.display = 'none';
@@ -553,7 +549,7 @@ function showPerPage() {
     expenseContainer.style.display = 'none';
     perContainer.style.display = '';
     sureContainer.style.display = 'none';
-};
+}
 
 function showSureContainer() {
     welcomeContainer.style.display = 'none';
