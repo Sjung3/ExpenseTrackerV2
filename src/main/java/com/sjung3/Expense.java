@@ -16,11 +16,11 @@ public class Expense {
     private int budgetID;
     @Column(name = "expenseDate", nullable = false)
     private Date expenseDate;
-    @Column(name = "expenseCategory", nullable = false, length = 300)
+    @Column(name = "expenseCategory", nullable = false, length = 30)
     private String expenseCategory;
     @Column(name = "expenseAmount", nullable = false)
     private double expenseAmount;
-    @Column(name = "expenseComment", nullable = false, length = 300)
+    @Column(name = "expenseComment", nullable = false, length = 30)
     private String expenseComment;
 
     public Expense() {

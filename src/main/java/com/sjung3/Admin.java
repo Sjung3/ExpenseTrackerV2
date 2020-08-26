@@ -73,12 +73,19 @@ public class Admin {
      * @return Returns a String Array containing a summery of the KPI's for the trip
      * @usage AppController.getSummery() (then returned  to index.js for rendering the summery of the trip)
      */
+    //TODO changed this....
     public String[] getSummery() {
-        String[] summeryArray = {budgetStartDate.toString(), budgetEndDate.toString(), budgetName,
+     /*   String[] summeryArray = {budgetStartDate.toString(), budgetEndDate.toString(), budgetName,
                 df.format(budgetTotal), spentToday(), dailyBudget(), df.format(avSpent()),
                 df.format(totalSPent()), remaining(), String.valueOf(daysOnTrip())};
 
-        return summeryArray;
+        return summeryArray;*/
+      /* return new String[]{budgetStartDate.toString(), budgetEndDate.toString(), budgetName,
+               df.format(budgetTotal), spentToday(), dailyBudget(), df.format(avSpent()),
+               df.format(totalSPent()), remaining(), String.valueOf(daysOnTrip())};*/
+      return new  String[] {budgetStartDate.toString(), budgetEndDate.toString(), budgetName,
+                df.format(budgetTotal), spentToday(), dailyBudget(), df.format(avSpent()),
+                df.format(totalSPent()), remaining(), String.valueOf(daysOnTrip())};
     }
 
     /**
@@ -86,13 +93,12 @@ public class Admin {
      * @usage dailyBudget(), daysOnTrip(), getSummery()
      */
     public int daysBudgeted() {
-        int days = (int) ChronoUnit.DAYS.between(budgetStartDate, budgetEndDate) + 1;
-        return days;
+        return (int) ChronoUnit.DAYS.between(budgetStartDate, budgetEndDate) + 1;
     }
 
     /**
      * @return Number of days travelled
-     *
+     * <p>
      * MaxDays ensures that maximum of days shown is no longer than days budgeted for
      * @usage avSpent(), getSPent()
      */
@@ -103,9 +109,8 @@ public class Admin {
             return maxDays;
         } else if (daysTravelled < 0) {
             return 0;
-        } else {
-            return daysTravelled;
         }
+            return daysTravelled;
     }
 
     /**
@@ -145,7 +150,7 @@ public class Admin {
      */
     public double avSpent() {
         double avSpent = 0;
-        if(daysOnTrip() != 0){
+        if (daysOnTrip() != 0) {
             avSpent = totalSPent() / daysOnTrip();
         }
         return avSpent;

@@ -61,8 +61,8 @@ welcomeContainer.addEventListener('click', async (e) => {
 
         const expenseData = await getExpenseData(budgetID);
         addToExpenseArray(expenseData);
-
-        displayTripSummery(budgetID);
+        const summary = await getTripSummery(budgetID);
+        displayTripSummery(summary);
     }
 });
 
@@ -72,14 +72,8 @@ welcomeContainer.addEventListener('click', (e) => {
     }
 });
 
-function getParent(e) {
-    const parent = e.target.parentElement;
-    return parent;
-}
-
 welcomeContainer.addEventListener('click', async (e) => {
     if (e.target.className == 'delete-budget delete-btn') {
-        console.log('hello world');
         const parent = getParent(e);
         const where = parent.children[1].textContent;
 
@@ -164,7 +158,7 @@ perContainer.addEventListener('click', async (e) => {
         const ctgOrNot = document.querySelector('.spent-per').textContent.split(' ');
 
         const dataToDelete = await deleteItem(e);
-        alert(dataToDelete + ' has been deleted');
+        console.log(dataToDelete + ' has been deleted')
 
         const expenseData = await getExpenseData(budgetID);
         addToExpenseArray(expenseData);
@@ -180,16 +174,17 @@ perContainer.addEventListener('click', async (e) => {
     }
 });
 
-header.addEventListener('click', (e) => {
+header.addEventListener('click', async (e) => {
     if (e.target.className == 'back-btn') {
         showBudgetMenuPage();
         deleteElements(budgetList);
         clearTextContent(budgetInfoList);
 
-        const expenseData = getExpenseData(budgetID);
+        const expenseData = await getExpenseData(budgetID);
         addToExpenseArray(expenseData);
-        //TODO Do I need async/await???????
-        displayTripSummery(budgetID);
+
+        const summary = await getTripSummery(budgetID);
+        displayTripSummery(summary);
     }
 });
 header.addEventListener('click', async (e) => {
@@ -279,6 +274,28 @@ async function saveExpense() {
     }
 }
 
+async function deleteItem(e) {
+    try {
+        const li = getParent(e);
+        const where = li.children[0].className;
+        const id = li.children[0].textContent;
+        const ul = li.closest("ul")
+        if (where == 'expense-id') {
+            const response = await axios.post('api/deleteExpense', {'expenseID': id});
+            if (ul.className == "expense-list") {
+                expenseList.removeChild(li);
+                return response.data;
+            }
+            return response.data;
+        } else if (where == 'budget-id') {
+            const response = await axios.post('api/deleteBudget', {'budgetID': id});
+            return response.data;
+        }
+    } catch (error) {
+        alert(errorMessage)
+    }
+}
+
 function addToExpenseArray(expArray) {
     expenseArray = [];
     expenseArray = expArray;
@@ -300,55 +317,35 @@ async function displayTodaysDate() {
     document.querySelector('#todays-date').textContent += response.data;
 }
 
-//TODO Can I use while or a for loop to populate textContent? OR CAN I USE SIMILARE AS perdate and cat
-//Gets the summery from Java admin
-async function displayTripSummery(budgetID) {
+async function getTripSummery(budgetID) {
     try {
         const response = await axios.post('/api/getSummery', {
             'budgetID': budgetID,
         });
 
-        let summery = response.data;
+        return response.data;
 
-        for(let x of summery){
-            console.log(x)
-        }
-        if (summery[6] == 'NaN') {
-            summery[6] = .00;
-        }
-
-        document.querySelector('#budget-dates').textContent += summery[0] + ' - ' + summery[1];
-        document.querySelector('#budget-name').textContent += summery[2];
-        document.querySelector('#budget-total').textContent += 'Budget: €' + summery[3];
-        document.querySelector('#total-day').textContent += 'Spent today: €' + summery[4];
-        document.querySelector('#daily-budget').textContent += 'Daily budget: €' + summery[5];
-        document.querySelector('#average-spent').textContent += 'Average spent: €' + summery[6];
-        document.querySelector('#total-trip').textContent += 'Total for trip: €' + summery[7];
-        document.querySelector('#remaining').textContent += 'Remaining: €' + summery[8];
-        document.querySelector('#days-trip').textContent += 'Days on trip: ' + summery[9];
     } catch (e) {
     }
 }
 
-async function deleteItem(e) {
+//TODO Can I use while or a for loop to populate textContent? OR CAN I USE SIMILARE AS perdate and cat
+//Gets the summery from Java admin
+function displayTripSummery(summary) {
     try {
-        const li = e.target.parentElement;
-        const where = li.children[0].className;
-        const id = li.children[0].textContent;
-        const ul = li.closest("ul")
-        if (where == 'expense-id') {
-            const response = await axios.post('api/deleteExpense', {'expenseID': id});
-            if (ul.className == "expense-list") {
-                expenseList.removeChild(li);
-                return response.data;
-            }
-            return response.data;
-        } else if (where == 'budget-id') {
-            const response = await axios.post('api/deleteBudget', {'budgetID': id});
-            return response.data;
+        if (summary[6] == 'NaN') {
+            summary[6] = .00;
         }
-    } catch (error) {
-        alert(errorMessage)
+        document.querySelector('#budget-dates').textContent += summary[0] + ' - ' + summary[1];
+        document.querySelector('#budget-name').textContent += summary[2];
+        document.querySelector('#budget-total').textContent += 'Budget: €' + summary[3];
+        document.querySelector('#total-day').textContent += 'Spent today: €' + summary[4];
+        document.querySelector('#daily-budget').textContent += 'Daily budget: €' + summary[5];
+        document.querySelector('#average-spent').textContent += 'Average spent: €' + summary[6];
+        document.querySelector('#total-trip').textContent += 'Total for trip: €' + summary[7];
+        document.querySelector('#remaining').textContent += 'Remaining: €' + summary[8];
+        document.querySelector('#days-trip').textContent += 'Days on trip: ' + summary[9];
+    } catch (e) {
     }
 }
 
@@ -439,7 +436,6 @@ function createSpentSummeryElements(spentPer) {
 
         const listElement = document.createElement('li');
         listElement.className = 'inner-list-per in-expense-list';
-        //listElement.className = 'inner-list-expense';
 
         const spentPerDayItem = document.createElement('h2');
         spentPerDayItem.className = 'spent-per';
@@ -449,6 +445,11 @@ function createSpentSummeryElements(spentPer) {
         expenseList.appendChild(listElement);
         createExpenseElements(where[0].toLowerCase());
     }
+}
+
+function getParent(e) {
+    const parent = e.target.parentElement;
+    return parent;
 }
 
 //Specifies the variable budgetID to specify expense foreign key
