@@ -48,8 +48,8 @@ public class AppService {
     }
 
     @Transactional
-    public Expense saveExpense(int budgetID, java.sql.Date expenseDate, String enxpenseCategory, double expenseAmount, String expenseComment) {
-        return repository.saveExpense(new Expense(budgetID, expenseDate, enxpenseCategory, expenseAmount, expenseComment));
+    public Expense saveExpense(int budgetID, java.sql.Date expenseDate, String expenseCategory, double expenseAmount, String expenseComment) {
+        return repository.saveExpense(new Expense(budgetID, expenseDate, expenseCategory, expenseAmount, expenseComment));
     }
 
     @Transactional

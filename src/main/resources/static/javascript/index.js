@@ -46,11 +46,13 @@ window.addEventListener('load', async () => {
     createBudgetElements(budgetData);
 
     showWelcomePage();
-    displayTodaysDate();
+    const todaysDate = await getTodaysDate();
+
+    displayTodaysDate(todaysDate);
 });
 
 welcomeContainer.addEventListener('click', async (e) => {
-    if (e.target.className == 'go-btn') {
+    if (e.target.className === 'go-btn') {
         showBudgetMenuPage();
 
         //Sets the value of budgetID and dates which is used when adding a new expense.
@@ -66,13 +68,13 @@ welcomeContainer.addEventListener('click', async (e) => {
 });
 
 welcomeContainer.addEventListener('click', (e) => {
-    if (e.target.className == 'add-budget-btn') {
+    if (e.target.className === 'add-budget-btn') {
         showAddBudgetPage();
     }
 });
 
 welcomeContainer.addEventListener('click', async (e) => {
-    if (e.target.className == 'delete-budget delete-btn') {
+    if (e.target.className === 'delete-budget delete-btn') {
         const parent = getParent(e);
         const child = getChild(parent, 1);
         const id = getChildTextContent(child);
@@ -81,7 +83,7 @@ welcomeContainer.addEventListener('click', async (e) => {
         showSureContainer();
         sureContainer.addEventListener('click', async (ev) => {
 
-            if (ev.target.id == 'yes-btn') {
+            if (ev.target.id === 'yes-btn') {
                 const budgetToDelete = await deleteItem(e);
                 if (budgetToDelete > 0) {
                     deleteElements(budgetList);
@@ -90,7 +92,7 @@ welcomeContainer.addEventListener('click', async (e) => {
                     createBudgetElements(budgetData)
                     showWelcomePage();
                 }
-            } else if (ev.target.id == 'no-btn') {
+            } else if (ev.target.id === 'no-btn') {
                 showWelcomePage()
             }
         });
@@ -98,7 +100,7 @@ welcomeContainer.addEventListener('click', async (e) => {
 });
 
 budgetContainer.addEventListener('click', async (e) => {
-    if (e.target.className == 'submit-btn') {
+    if (e.target.className === 'submit-btn') {
         const budgetData = await saveBudget();
         addToBudgetArray(budgetData);
         clearInput(document.querySelectorAll('.budget-submitted'));
@@ -106,23 +108,23 @@ budgetContainer.addEventListener('click', async (e) => {
 });
 
 budgetMenuContainer.addEventListener('click', (e) => {
-    if (e.target.className == 'add-expense-btn') {
+    if (e.target.className === 'add-expense-btn') {
         showAddExpensePage();
     }
 });
 
 budgetMenuContainer.addEventListener('click', async (e) => {
-    if (e.target.className == 'category-btn' || e.target.className == 'date-btn') {
+    if (e.target.className === 'category-btn' || e.target.className === 'date-btn') {
         showPerPage();
         deleteElements(expenseList);
 
         const expenseData = await getExpenseData(budgetID);
         addToExpenseArray(expenseData);
 
-        if (e.target.className == 'category-btn') {
+        if (e.target.className === 'category-btn') {
             const spentPerCategory = await getSpentPerCategorySummery();
             createSpentSummeryElements(spentPerCategory)
-        } else if (e.target.className == 'date-btn') {
+        } else if (e.target.className === 'date-btn') {
             const spentPerDate = await getSpentPerDay();
             createSpentSummeryElements(spentPerDate)
         }
@@ -130,7 +132,7 @@ budgetMenuContainer.addEventListener('click', async (e) => {
 });
 
 expenseContainer.addEventListener('click', async (e) => {
-    if (e.target.className == 'submit-btn') {
+    if (e.target.className === 'submit-btn') {
         const expenseData = await saveExpense();
         addToExpenseArray(expenseData);
         clearInput(document.querySelectorAll('.expense-submitted'));
@@ -138,7 +140,7 @@ expenseContainer.addEventListener('click', async (e) => {
 });
 //Displays the details of spent per category when a user clicks on ie 'food'
 perContainer.addEventListener('click', (e) => {
-    if (e.target.className == 'spent-per') {
+    if (e.target.className === 'spent-per') {
         const parent = getParent(e);
         const child = getChild(parent, 0);
         const showThese = getChildTextContent(child).split(' ');
@@ -155,7 +157,7 @@ perContainer.addEventListener('click', (e) => {
 });
 
 perContainer.addEventListener('click', async (e) => {
-    if (e.target.className == 'delete-expense delete-btn') {
+    if (e.target.className === 'delete-expense delete-btn') {
         const ctgOrNot = document.querySelector('.spent-per').textContent.split(' ');
 
         const dataToDelete = await deleteItem(e);
@@ -176,7 +178,7 @@ perContainer.addEventListener('click', async (e) => {
 });
 
 header.addEventListener('click', async (e) => {
-    if (e.target.className == 'back-btn') {
+    if (e.target.className === 'back-btn') {
         showBudgetMenuPage();
         deleteElements(budgetList);
         clearTextContent(budgetInfoList);
@@ -189,7 +191,7 @@ header.addEventListener('click', async (e) => {
     }
 });
 header.addEventListener('click', async (e) => {
-    if (e.target.className == 'home-btn') {
+    if (e.target.className === 'home-btn') {
         showWelcomePage();
         deleteElements(budgetList);
         clearTextContent(budgetInfoList);
@@ -217,10 +219,10 @@ async function saveBudget() {
         startDate = new Date(budgetStartDate.value);
         endDate = new Date(budgetEndDate.value);
         let differenceInTime = endDate.getTime() - startDate.getTime();
-        if (budgetName.value.length == 0 || budgetStartDate.value.length == 0 || budgetEndDate.value.length == 0 || budgetAmount.value == 0) {
+        if (budgetName.value.length === 0 || budgetStartDate.value.length === 0 || budgetEndDate.value.length === 0 || budgetAmount.value === 0) {
             alert('Please fill in all fields.')
         } else {
-            if (differenceInTime = 0 || differenceInTime > 1) {
+            if (differenceInTime === 0 || differenceInTime > 1) {
                 const response = await axios.post('api/saveBudget', {
                     'budgetName': budgetName.value,
                     'budgetStartDate': budgetStartDate.value,
@@ -253,7 +255,7 @@ async function getExpenseData(budgetID) {
 
 async function saveExpense() {
     try {
-        if (expenseDate.value.length == 0 || expenseCategory.value.length == 0 || expenseAmount.value.length == 0) {
+        if (expenseDate.value.length === 0 || expenseCategory.value.length === 0 || expenseAmount.value.length === 0) {
             alert('Only comment field can be empty')
         } else {
             if (expenseDate.value >= startDate && expenseDate.value <= endDate) {
@@ -283,14 +285,14 @@ async function deleteItem(e) {
         const className = child.className;
         const ul = parent.closest("ul")
 
-        if (className == 'expense-id') {
+        if (className === 'expense-id') {
             const response = await axios.post('api/deleteExpense', {'expenseID': id});
-            if (ul.className == "expense-list") {
+            if (ul.className === "expense-list") {
                 expenseList.removeChild(parent);
                 return response.data;
             }
             return response.data;
-        } else if (className == 'budget-id') {
+        } else if (className === 'budget-id') {
             const response = await axios.post('api/deleteBudget', {'budgetID': id});
             return response.data;
         }
@@ -315,9 +317,13 @@ async function getSpentPerDay() {
     }
 }
 
-async function displayTodaysDate() {
+async function getTodaysDate() {
     const response = await axios.get('/api/todaysDate');
-    document.querySelector('#todays-date').textContent += response.data;
+    return response.data;
+}
+
+function displayTodaysDate(todaysDate) {
+    document.querySelector('#todays-date').textContent += todaysDate;
 }
 
 async function getTripSummery(budgetID) {
@@ -336,7 +342,7 @@ async function getTripSummery(budgetID) {
 //Gets the summery from Java admin
 function displayTripSummery(summary) {
     try {
-        if (summary[6] == 'NaN') {
+        if (summary[6] === 'NaN') {
             summary[6] = .00;
         }
         document.querySelector('#budget-dates').textContent += summary[0] + ' - ' + summary[1];
@@ -409,7 +415,7 @@ function createExpenseElements(compareWith) {
 
         const expenseItem = document.createElement('p');
         expenseItem.className = 'expense';
-        if (expense.expenseComment == null) {
+        if (expense.expenseComment === null) {
             expenseItem.textContent = expense.expenseDate + ' || ' + expense.expenseCategory + ' €' + expense.expenseAmount;
         } else {
             expenseItem.textContent = expense.expenseDate + ' || ' + expense.expenseCategory + ' €' + expense.expenseAmount +
@@ -427,7 +433,7 @@ function createExpenseElements(compareWith) {
         listElement.appendChild(deleteButton);
         listElement.style.display = 'none';
 
-        if (expense.expenseCategory == compareWith || expense.expenseDate == compareWith) {
+        if (expense.expenseCategory === compareWith || expense.expenseDate === compareWith) {
             expenseList.appendChild(listElement);
         }
     }
@@ -451,7 +457,8 @@ function createSpentSummeryElements(spentPer) {
 }
 
 function getParent(e) {
-    return e.target.parentElement;;
+    return e.target.parentElement;
+
 }
 
 function getChild(parent, index) {
@@ -494,10 +501,6 @@ function clearTextContent(list) {
         const textToDelete = text.textContent;
         text.textContent = textToDelete.replace(textToDelete, '');
     }
-}
-
-function clearExpenseArray() {
-    expenseArray = [];
 }
 
 function clearInput(inputValue) {

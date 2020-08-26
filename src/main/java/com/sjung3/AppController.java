@@ -115,7 +115,7 @@ public class AppController {
     /**
      *
      * @param data is the user input when user adds a new budget
-     * @return Budget object used to createELements in index.js
+     * @return Budget object used to createElements in index.js
      */
     @PostMapping("/api/saveBudget")
     public ResponseEntity<Budget> saveBudget(@RequestBody BudgetData data) {
