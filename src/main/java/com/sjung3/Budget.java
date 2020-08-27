@@ -23,7 +23,7 @@ public class Budget {
     @Column(name = "budgetAmount", nullable = false)
     private double budgetAmount;
 
-    //Creates the objects after Hibernate has retrieved the records from the database
+        //Creates the objects after Hibernate has retrieved the records from the database
     public Budget() {
     }
     //budgetID excluded as parameter since it is on auto-incremented in in DB table

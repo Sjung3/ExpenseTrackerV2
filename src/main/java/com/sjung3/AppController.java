@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 //The MVC controller class of the App
@@ -60,6 +62,7 @@ public class AppController {
         for (Expense exp : expenses) {
             admin.addToExpenses(exp);
         }
+        Collections.sort(expenses, Comparator.comparing(Expense::getExpenseDate));
         return ResponseEntity.ok(expenses);
     }
 
