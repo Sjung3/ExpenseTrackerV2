@@ -19,13 +19,6 @@ A web app to track expenses vs budget while traveling.
 <li>JavaScript</li>
 <li>MySQL</li>
 </ul>
-Java 13
-Spring 2.2.5
-Maven
-Tomcat
-MySQL
-JavaScript
-
 
 # Status
 In progress
