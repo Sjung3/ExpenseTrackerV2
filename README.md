@@ -33,8 +33,6 @@ In progress
 <li>Add Exchange rate API so expenses can be added and tracked in different currency</li>
 <li>Add functionality for user to edit budget</li>
 <li>Create tables if don’t exist</li>
-<li>Sort Category list in date order</li>
-<li>Add endocde for html on comment</li>
 </ul>
 
 # Sources
