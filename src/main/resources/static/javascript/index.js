@@ -338,7 +338,7 @@ async function getTripSummery(budgetID) {
     }
 }
 
-//TODO Can I use while or a for loop to populate textContent? OR CAN I USE SIMILARE AS perdate and cat
+//TODO Can I use while or a for loop to populate textContent?
 //Gets the summery from Java admin
 function displayTripSummery(summary) {
     try {

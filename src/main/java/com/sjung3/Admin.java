@@ -22,8 +22,8 @@ public class Admin {
     private TreeMap<Date, Double> dateMap;
 
     public Admin() {
-        this.expenseArray = new ArrayList<Expense>();
-        this.dateMap = new TreeMap<Date, Double>();
+        this.expenseArray = new ArrayList<>();
+        this.dateMap = new TreeMap<>();
     }
 
     public ArrayList<Expense> getExpenseArray() {
@@ -70,7 +70,6 @@ public class Admin {
      * @return Returns a String Array containing a summery of the KPI's for the trip
      * @usage AppController.getSummery() (then returned  to index.js for rendering the summery of the trip)
      */
-    //TODO changed this....
     public String[] getSummery() {
         return new String[]{budgetStartDate.toString(), budgetEndDate.toString(), budgetName,
                 df.format(budgetTotal), spentToday(), dailyBudget(), df.format(avSpent()),
@@ -107,8 +106,7 @@ public class Admin {
      * @usage getSummery()
      */
     public String dailyBudget() {
-        double budgetPerDay = 0;
-        budgetPerDay = budgetTotal / daysBudgeted();
+        double budgetPerDay = budgetTotal / daysBudgeted();
         return df.format(budgetPerDay);
     }
 
@@ -162,8 +160,6 @@ public class Admin {
      * @return Returns a String Array containing the sum of each category
      * @usage getSummery()
      */
-
-    //TODO CHANGE TO SWITCH (FROM IF)
     public String[] spentPerCategory() {
         double food = 0;
         double entertainment = 0;
@@ -171,18 +167,25 @@ public class Admin {
         double transport = 0;
         double misc = 0;
         for (Expense expense : expenseArray) {
-            if (expense.getExpenseCategory().equals("food")) {
-                food += expense.getExpenseAmount();
-            } else if (expense.getExpenseCategory().equals("entertainment")) {
-                entertainment += expense.getExpenseAmount();
-            } else if (expense.getExpenseCategory().equals("accommodation")) {
-                accommodation += expense.getExpenseAmount();
-            } else if (expense.getExpenseCategory().equals("transport")) {
-                transport += expense.getExpenseAmount();
-            } else if (expense.getExpenseCategory().equals("misc")) {
-                misc += expense.getExpenseAmount();
-            } else {
-                System.out.println("Something went wrong");
+            switch (expense.getExpenseCategory()) {
+                case "food":
+                    food += expense.getExpenseAmount();
+                    break;
+                case "entertainment":
+                    entertainment += expense.getExpenseAmount();
+                    break;
+                case "accommodation":
+                    accommodation += expense.getExpenseAmount();
+                    break;
+                case "transport":
+                    transport += expense.getExpenseAmount();
+                    break;
+                case "misc":
+                    misc += expense.getExpenseAmount();
+                    break;
+                default:
+                    System.out.println("Something went wrong");
+                    break;
             }
         }
         return new String[]{"Food €" + df.format(food), "Entertainment €" + df.format(entertainment), "Accommodation €" +
@@ -195,7 +198,7 @@ public class Admin {
      */
     public ArrayList<String> spentPerDay() {
         clearDateMap();
-        ArrayList<String> spentPerDay = new ArrayList<String>();
+        ArrayList<String> spentPerDay = new ArrayList<>();
 
         for (Expense expense : expenseArray) {
             dateMap.put(expense.getExpenseDate(), 0.0);
@@ -205,10 +208,8 @@ public class Admin {
             dateMap.put(expense.getExpenseDate(), dateSum + expense.getExpenseAmount());
         }
 
-        Set set = dateMap.entrySet();
-        Iterator itr = set.iterator();
-        while (itr.hasNext()) {
-            Map.Entry me = (Map.Entry) itr.next();
+        for (Object o : dateMap.entrySet()) {
+            Map.Entry me = (Map.Entry) o;
             String dateExp = me.getKey() + " € " + df.format(me.getValue());
             spentPerDay.add(dateExp);
         }
