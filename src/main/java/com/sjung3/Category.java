@@ -23,7 +23,7 @@ public enum Category {
             case MISC:
                 return "Misc";
             default:
-                return "Unspecified";
+                return "N/A";
         }
     }
 }
