@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>The Expense Tracker</title>
     <link rel="stylesheet" href="./css/style.css?refreshcss=1">
+    <link rel='icon' href='./favicon/favicon.ico' type='image/x-icon'>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="./javascript/index.js" defer></script>
 
@@ -18,9 +19,7 @@
 
     <div class="welcome-container">
         <h2 class="h2">Budgets</h2>
-
         <ul class="budget-list">
-
         </ul>
         <div class="btn-container">
             <button class="add-budget-btn" type="submit">Add a new budget</button>
@@ -58,7 +57,6 @@
     </div>
 
     <div class="budget-menu-container">
-
         <ul id="budget-ul">
             <li class="budget-info-list" id="budget-dates"></li>
             <li class="budget-info-list" id="budget-name"></li>
@@ -89,11 +87,11 @@
         <label class="expense-label" id="exp-category">
             <span class="expense-info h4">Category</span>
             <select class="expense-category expense-submitted">
-                <option value="food">Food</option>
-                <option value="entertainment">Entertainment</option>
-                <option value="accommodation">Accommodation</option>
-                <option value="transport">Transport</option>
-                <option value="misc">Misc</option>
+                <option value="FOOD">Food</option>
+                <option value="ENTERTAINMENT">Entertainment</option>
+                <option value="ACCOMMODATION">Accommodation</option>
+                <option value="TRANSPORT">Transport</option>
+                <option value="MISC">Misc</option>
             </select>
         </label>
         <label class="expense-label" id="exp-amount">

@@ -1,6 +1,5 @@
 package com.sjung3;
 
-import org.owasp.encoder.Encode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,8 +43,7 @@ public class AppController {
     @GetMapping("/api/getBudgets")
     @ResponseBody
     public ResponseEntity<List<Budget>> getBudgets() {
-        List<Budget> budgets = appService.getBudgets();
-        return ResponseEntity.ok(budgets);
+        return ResponseEntity.ok(appService.getBudgets());
     }
 
     /*
@@ -60,6 +58,7 @@ public class AppController {
     public ResponseEntity<List<Expense>> getExpenses(@RequestBody BudgetData data) {
         admin.clearExpenseArray();
         List<Expense> expenses = appService.getExpenses(data.getBudgetID());
+
         for (Expense exp : expenses) {
             admin.addToExpenses(exp);
         }
@@ -93,8 +92,7 @@ public class AppController {
             admin.setBudgetEndDate(budget.getBudgetEndDate().toLocalDate());
             admin.setBudgetTotal(budget.getBudgetAmount());
         }
-        String[] getSummery = admin.getSummery();
-        return ResponseEntity.ok(getSummery);
+        return ResponseEntity.ok(admin.getSummery());
     }
 
     /**
@@ -122,8 +120,8 @@ public class AppController {
      */
     @PostMapping("/api/saveBudget")
     public ResponseEntity<Budget> saveBudget(@RequestBody BudgetData data) {
-        Budget saved = appService.saveBudget(data.getBudgetName(), data.getBudgetStartDate(), data.getBudgetEndDate(), data.getBudgetAmount());
-        return ResponseEntity.ok(saved);
+        return ResponseEntity.ok(appService.saveBudget(data.getBudgetName(), data.getBudgetStartDate(),
+                data.getBudgetEndDate(), data.getBudgetAmount()));
     }
 
     /**
@@ -133,9 +131,8 @@ public class AppController {
      */
     @PostMapping("/api/saveExpense")
     public ResponseEntity<Expense> saveExpense(@RequestBody ExpenseData data) {
-        Expense saved = appService.saveExpense(data.getBudgetID(), data.getExpenseDate(),
-                data.getExpenseCategory(), data.getExpenseAmount(), data.getExpenseComment());
-        return ResponseEntity.ok(saved);
+        return ResponseEntity.ok(appService.saveExpense(data.getBudgetID(), data.getExpenseDate(),
+                data.getExpenseCategory(), data.getExpenseAmount(), data.getExpenseComment()));
     }
 
     /**
@@ -146,8 +143,7 @@ public class AppController {
     @PostMapping("/api/deleteBudget")
     @ResponseBody
     public ResponseEntity<Integer> deleteBudget(@RequestBody BudgetData data) {
-        int budgetID = appService.deleteItem("budget", data.getBudgetID());
-        return ResponseEntity.ok(budgetID);
+        return ResponseEntity.ok(appService.deleteItem("budget", data.getBudgetID()));
     }
 
     /**
@@ -158,8 +154,7 @@ public class AppController {
     @PostMapping("/api/deleteExpense")
     @ResponseBody
     public ResponseEntity<Integer> deleteExpense(@RequestBody ExpenseData data) {
-        int expenseID = appService.deleteItem("expense", data.getExpenseID());
-        return ResponseEntity.ok(expenseID);
+        return ResponseEntity.ok(appService.deleteItem("expense", data.getExpenseID()));
     }
 }
 

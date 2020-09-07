@@ -7,11 +7,11 @@ public class ExpenseData {
     private int budgetID;
     private int expenseID;
     private java.sql.Date expenseDate;
-    private String expenseCategory;
+    private Category expenseCategory;
     private double expenseAmount;
     private String expenseComment;
 
-    public ExpenseData(int budgetID, Date expenseDate, String expenseCategory, double expenseAmount, String expenseComment) {
+    public ExpenseData(int budgetID, Date expenseDate, Category expenseCategory, double expenseAmount, String expenseComment) {
         this.budgetID = budgetID;
         this.expenseID = expenseID;
         this.expenseDate = expenseDate;
@@ -32,7 +32,7 @@ public class ExpenseData {
         return expenseDate;
     }
 
-    public String getExpenseCategory() {
+    public Category getExpenseCategory() {
         return expenseCategory;
     }
 

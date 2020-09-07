@@ -21,6 +21,7 @@ public class AppService {
     /**
      * All transactions are initiated in the AppController class
      * All methods return then response from the App-repository class where transactions are executed
+     *
      * @return
      */
 
@@ -45,7 +46,7 @@ public class AppService {
     }
 
     @Transactional
-    public Expense saveExpense(int budgetID, java.sql.Date expenseDate, String expenseCategory, double expenseAmount, String expenseComment) {
+    public Expense saveExpense(int budgetID, java.sql.Date expenseDate, Category expenseCategory, double expenseAmount, String expenseComment) {
         return repository.saveExpense(new Expense(budgetID, expenseDate, expenseCategory, expenseAmount, expenseComment));
     }
 

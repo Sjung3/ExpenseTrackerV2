@@ -16,8 +16,9 @@ public class Expense {
     private int budgetID;
     @Column(name = "expenseDate", nullable = false)
     private Date expenseDate;
+    @Enumerated(EnumType.STRING)
     @Column(name = "expenseCategory", nullable = false, length = 30)
-    private String expenseCategory;
+    private Category expenseCategory;
     @Column(name = "expenseAmount", nullable = false)
     private double expenseAmount;
     @Column(name = "expenseComment", nullable = false, length = 30)
@@ -27,7 +28,7 @@ public class Expense {
     }
 
     //expenseID excluded as parameter since it is on auto-incremented in in DB table
-    public Expense(int budgetID, Date expenseDate, String expenseCategory, double expenseAmount, String expenseComment) {
+    public Expense(int budgetID, Date expenseDate, Category expenseCategory, double expenseAmount, String expenseComment) {
         this.expenseID = expenseID;
         this.budgetID = budgetID;
         this.expenseDate = expenseDate;
@@ -44,7 +45,7 @@ public class Expense {
         return expenseDate;
     }
 
-    public String getExpenseCategory() {
+    public Category getExpenseCategory() {
         return expenseCategory;
     }
 

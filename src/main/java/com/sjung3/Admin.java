@@ -168,28 +168,26 @@ public class Admin {
         double misc = 0;
         for (Expense expense : expenseArray) {
             switch (expense.getExpenseCategory()) {
-                case "food":
+                case FOOD:
                     food += expense.getExpenseAmount();
                     break;
-                case "entertainment":
+                case ENTERTAINMENT:
                     entertainment += expense.getExpenseAmount();
                     break;
-                case "accommodation":
+                case ACCOMMODATION:
                     accommodation += expense.getExpenseAmount();
                     break;
-                case "transport":
+                case TRANSPORT:
                     transport += expense.getExpenseAmount();
                     break;
-                case "misc":
+                case MISC:
                     misc += expense.getExpenseAmount();
-                    break;
-                default:
-                    System.out.println("Something went wrong");
                     break;
             }
         }
-        return new String[]{"Food €" + df.format(food), "Entertainment €" + df.format(entertainment), "Accommodation €" +
-                df.format(accommodation), "Transport €" + df.format(transport), "Misc €" + df.format(misc)};
+        return new String[]{Category.FOOD + " €" + df.format(food), Category.ENTERTAINMENT + " €" + df.format(entertainment),
+                Category.ACCOMMODATION + " €" + df.format(accommodation), Category.TRANSPORT + " €" + df.format(transport),
+                Category.MISC + " €" + df.format(misc)};
     }
 
     /**

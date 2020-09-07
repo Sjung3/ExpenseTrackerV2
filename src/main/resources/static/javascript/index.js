@@ -150,7 +150,7 @@ perContainer.addEventListener('click', (e) => {
         for (const list of innerListExpense) {
             list.style.display = 'none';
             const fromExpenseList = getChildTextContent(list, 1);
-            if (fromExpenseList.includes(showThese[0].toLowerCase())) {
+            if (fromExpenseList.includes(showThese[0].toUpperCase())) {
                 list.style.display = '';
             }
         }
@@ -453,7 +453,7 @@ function createSpentSummeryElements(spentPer) {
 
         listElement.appendChild(spentPerDayItem);
         expenseList.appendChild(listElement);
-        createExpenseElements(where[0].toLowerCase());
+        createExpenseElements(where[0].toUpperCase());
     }
 }
 
